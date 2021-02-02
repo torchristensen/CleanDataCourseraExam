@@ -50,6 +50,8 @@ compact_data <- compact_data %>%
 #From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 mean_data <- compact_data %>%
   group_by(subject_id,activity) %>%
-  summarise(across(everything(), list(mean = mean)))
+  summarise(across(everything(), list(mean = mean))) %>%
+  rename_with(~ gsub('_mean', '', .x))
 
+write.table(mean_data, "dataset.txt", row.name=FALSE)
 
